@@ -4,8 +4,6 @@ require('dotenv').config() // 載入環境變數
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
       dbName: 'dacabe', // 指定資料庫名稱
     })
     console.log('✅ MongoDB Connected!')
