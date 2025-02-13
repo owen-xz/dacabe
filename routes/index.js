@@ -4,7 +4,7 @@ const router = express.Router()
 
 // 定義首頁路由
 router.get('/', (req, res) => {
-  res.send(`'Welcome to the Home Page!'${process.env.PORT}`)
+  res.send('Welcome to the Home Page!')
 })
 router.get('/paints', async (req, res) => {
   try {
