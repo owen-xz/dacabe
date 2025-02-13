@@ -21,7 +21,13 @@ const indexRoutes = require('./routes/index')
 // 使用路由
 app.use('/', indexRoutes)
 
-// 啟動伺服器
-app.listen(PORT, () => {
-  console.log(`🚀 Server is running at http://localhost:${PORT}`)
-})
+// 只在開發環境中啟動伺服器
+if (process.env.NODE_ENV === 'development') {
+  const PORT = process.env.PORT || 3000
+  app.listen(PORT, () => {
+    console.log(`🚀 Server is running at http://localhost:${PORT}`)
+  })
+}
+
+// 在 Vercel 部署時會自動處理入口點，無需使用 app.listen()
+module.exports = app
