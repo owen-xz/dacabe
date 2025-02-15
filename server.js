@@ -16,10 +16,12 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // 引入路由
-const indexRoutes = require('./routes/index')
+const userRoutes = require('./routes/user')
+const paintRoutes = require('./routes/paint')
 
 // 使用路由
-app.use('/', indexRoutes)
+app.use('/api', userRoutes)
+app.use('/api', paintRoutes)
 
 app.listen(PORT, () => {
   console.log(`🚀 Server is running at http://localhost:${PORT}`)

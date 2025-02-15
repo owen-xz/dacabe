@@ -6,6 +6,8 @@ const router = express.Router()
 router.get('/', (req, res) => {
   res.send('Welcome to the Home Page!')
 })
+
+// 取得所有畫作
 router.get('/paints', async (req, res) => {
   try {
     const paints = await Paint.find()
@@ -14,13 +16,8 @@ router.get('/paints', async (req, res) => {
     res.status(500).json({ message: '無法取得圖片', error })
   }
 })
-router.get('/news', (req, res) => {
-  res.send('Get all news')
-})
-router.get('/news/:id', (req, res) => {
-  res.send(`Get news with ID: ${req.params.id}`)
-})
 
+// 新增畫作
 router.post('/paint', async (req, res) => {
   try {
     const newPaint = new Paint({
@@ -33,6 +30,8 @@ router.post('/paint', async (req, res) => {
     res.status(500).json({ message: '無法新增圖片', error })
   }
 })
+
+// 刪除所有畫作
 router.delete('/paints', async (req, res) => {
   try {
     const result = await Paint.deleteMany()
