@@ -17,10 +17,12 @@ app.use(express.urlencoded({ extended: true }))
 
 // 引入路由
 const userRoutes = require('./routes/user')
+const reservationRoutes = require('./routes/reservation')
 const paintRoutes = require('./routes/paint')
 
 // 使用路由
 app.use('/api', userRoutes)
+app.use('/api', reservationRoutes)
 app.use('/api', paintRoutes)
 
 app.listen(PORT, () => {
