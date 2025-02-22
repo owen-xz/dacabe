@@ -1,12 +1,15 @@
 const express = require('express')
 const connectDB = require('./config/db') // 載入 DB 連線
 require('dotenv').config() // 引入 dotenv
+const cors = require('cors')
 
 const app = express()
 const PORT = process.env.PORT || 3001
 
 // 連接 MongoDB
 connectDB()
+
+app.use(cors())
 
 // 設定靜態檔案目錄 (如有前端檔案)
 app.use(express.static('public'))
