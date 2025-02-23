@@ -22,11 +22,13 @@ app.use(express.urlencoded({ extended: true }))
 const userRoutes = require('./routes/user')
 const reservationRoutes = require('./routes/reservation')
 const paintRoutes = require('./routes/paint')
+const newsRoutes = require('./routes/news')
 
 // 使用路由
 app.use('/api', userRoutes)
 app.use('/api', reservationRoutes)
 app.use('/api', paintRoutes)
+app.use('/api', newsRoutes)
 
 app.listen(PORT, () => {
   console.log(`🚀 Server is running at http://localhost:${PORT}`)
