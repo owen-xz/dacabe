@@ -1,5 +1,4 @@
 const express = require('express')
-const Paint = require('../models/Paint')
 const {
   getPaints,
   postPaint,

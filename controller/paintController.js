@@ -15,7 +15,7 @@ const getPaints = async (req, res) => {
 const postPaint = async (req, res) => {
   const { url } = req.body
   if (!url) {
-    res.status(400).json({ message: 'miss required', error })
+    res.status(400).json({ message: 'miss required' })
   }
   try {
     const newPaint = new Paint({
