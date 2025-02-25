@@ -1,10 +1,24 @@
 const News = require('../models/News')
 
-// 取得新聞
+// 取得所有新聞
 const getNews = async (req, res) => {
   try {
-    const paints = await News.find().sort({ createdAt: -1 })
-    res.status(200).json(paints)
+    const news = await News.find().sort({ createdAt: -1 })
+    res.status(200).json(news)
+  } catch (error) {
+    res.status(500).json({ message: '發生未知錯誤', error })
+  }
+}
+
+// 取得單則新聞
+const getOneNews = async (req, res) => {
+  try {
+    const { id } = req.params
+    if (!id) {
+      res.status(400).json({ message: 'miss required' })
+    }
+    const news = await News.findById(id)
+    res.status(200).json(news)
   } catch (error) {
     res.status(500).json({ message: '發生未知錯誤', error })
   }
@@ -32,5 +46,6 @@ const postNews = async (req, res) => {
 
 module.exports = {
   getNews,
+  getOneNews,
   postNews,
 }
