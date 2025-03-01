@@ -23,12 +23,14 @@ const userRoutes = require('./routes/user')
 const reservationRoutes = require('./routes/reservation')
 const paintRoutes = require('./routes/paint')
 const newsRoutes = require('./routes/news')
+const productRoutes = require('./routes/product')
 
 // 使用路由
 app.use('/api', userRoutes)
 app.use('/api', reservationRoutes)
 app.use('/api', paintRoutes)
 app.use('/api', newsRoutes)
+app.use('/api', productRoutes)
 
 app.listen(PORT, () => {
   console.log(`🚀 Server is running at http://localhost:${PORT}`)
