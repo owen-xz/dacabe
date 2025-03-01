@@ -10,7 +10,7 @@ const getCategory = async (req, res) => {
   }
 }
 
-// 取得商品
+// 取得所有商品
 const getProducts = async (req, res) => {
   try {
     // 判斷必填
@@ -26,6 +26,23 @@ const getProducts = async (req, res) => {
     }
     const products = await Products.find(search).limit(12).skip(offset)
     res.status(200).json(products)
+  } catch (error) {
+    res.status(500).json({ message: '發生未知錯誤', error })
+  }
+}
+
+// 取得單則商品
+const getProduct = async (req, res) => {
+  try {
+    // 判斷必填
+    const { id } = req.params
+    if (!id) {
+      res.status(400).json({ message: 'miss required' })
+    }
+
+    // 取得商品
+    const product = await Products.findById(id)
+    res.status(200).json(product)
   } catch (error) {
     res.status(500).json({ message: '發生未知錯誤', error })
   }
@@ -74,6 +91,7 @@ const deleteProducts = async (req, res) => {
 module.exports = {
   getCategory,
   getProducts,
+  getProduct,
   postProduct,
   deleteProducts,
 }

@@ -2,6 +2,7 @@ const express = require('express')
 const {
   getCategory,
   getProducts,
+  getProduct,
   postProduct,
   deleteProducts,
 } = require('../controller/productController')
@@ -12,6 +13,9 @@ router.get('/category', getCategory)
 
 // 取得所有商品
 router.get('/products', getProducts)
+
+// 取得單則商品
+router.get('/product/:id', getProduct)
 
 // 新增商品
 router.post('/product', postProduct)
