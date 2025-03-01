@@ -1,4 +1,14 @@
 const Products = require('../models/Products')
+const { categoryEnum } = require('../enums/productEnum')
+
+// 取得分類
+const getCategory = async (req, res) => {
+  try {
+    res.status(200).json(categoryEnum)
+  } catch (error) {
+    res.status(500).json({ message: '發生未知錯誤', error })
+  }
+}
 
 // 取得商品
 const getProducts = async (req, res) => {
@@ -62,6 +72,7 @@ const deleteProducts = async (req, res) => {
 }
 
 module.exports = {
+  getCategory,
   getProducts,
   postProduct,
   deleteProducts,
