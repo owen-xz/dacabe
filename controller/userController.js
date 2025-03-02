@@ -22,9 +22,9 @@ const signup = async (req, res) => {
       phone,
     })
     await newUser.save()
-    res.status(200).json({ message: '註冊成功' })
+    return res.status(200).json({ message: '註冊成功' })
   } catch (error) {
-    res.status(500).json({ message: '發生未知錯誤', error })
+    return res.status(500).json({ message: '發生未知錯誤', error })
   }
 }
 
@@ -62,9 +62,11 @@ const login = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 天
     })
 
-    res.status(200).json({ accessToken, userId: _id, name, phone, email })
+    return res
+      .status(200)
+      .json({ accessToken, userId: _id, name, phone, email })
   } catch (error) {
-    res.status(500).json({ message: '發生未知錯誤', error })
+    return res.status(500).json({ message: '發生未知錯誤', error })
   }
 }
 
@@ -96,9 +98,11 @@ const refresh = async (req, res) => {
       { expiresIn: '15m' }
     )
 
-    res.status(200).json({ accessToken, userId: _id, name, phone, email })
+    return res
+      .status(200)
+      .json({ accessToken, userId: _id, name, phone, email })
   } catch (err) {
-    res.status(500).json({ message: '發生未知錯誤', error })
+    return res.status(500).json({ message: '發生未知錯誤', error })
   }
 }
 
@@ -109,9 +113,9 @@ const logout = (req, res) => {
       httpOnly: true,
     })
 
-    res.status(200).json({ message: '登出成功' })
+    return res.status(200).json({ message: '登出成功' })
   } catch (err) {
-    res.status(500).json({ message: '發生未知錯誤', error })
+    return res.status(500).json({ message: '發生未知錯誤', error })
   }
 }
 

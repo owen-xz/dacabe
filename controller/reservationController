@@ -29,9 +29,9 @@ const getReservation = async (req, res) => {
       phone,
       status: 'unreported',
     })
-    res.status(200).json(reservation)
+    return res.status(200).json(reservation)
   } catch (error) {
-    res.status(500).json({ message: '發生未知錯誤', error })
+    return res.status(500).json({ message: '發生未知錯誤', error })
   }
 }
 
@@ -69,9 +69,9 @@ const postReservation = async (req, res) => {
       note,
       reservedTime,
     }).save()
-    res.status(200).json({ message: '新增訂位成功' })
+    return res.status(200).json({ message: '新增訂位成功' })
   } catch (error) {
-    res.status(500).json({ message: '發生未知錯誤', error })
+    return res.status(500).json({ message: '發生未知錯誤', error })
   }
 }
 
@@ -95,9 +95,9 @@ const putReservation = async (req, res) => {
       { _id: id },
       { $set: { status } }
     )
-    res.status(200).json({ message: '更新訂位狀態成功' })
+    return res.status(200).json({ message: '更新訂位狀態成功' })
   } catch (error) {
-    res.status(500).json({ message: '發生未知錯誤', error })
+    return res.status(500).json({ message: '發生未知錯誤', error })
   }
 }
 

@@ -4,9 +4,9 @@ const { categoryEnum } = require('../enums/productEnum')
 // 取得分類
 const getCategory = async (req, res) => {
   try {
-    res.status(200).json(categoryEnum)
+    return res.status(200).json(categoryEnum)
   } catch (error) {
-    res.status(500).json({ message: '發生未知錯誤', error })
+    return res.status(500).json({ message: '發生未知錯誤', error })
   }
 }
 
@@ -16,7 +16,7 @@ const getProducts = async (req, res) => {
     // 判斷必填
     const { offset, category } = req.query
     if (!offset) {
-      res.status(400).json({ message: 'miss required' })
+      return res.status(400).json({ message: 'miss required' })
     }
 
     // 取得商品
@@ -25,9 +25,9 @@ const getProducts = async (req, res) => {
       search = { category }
     }
     const products = await Products.find(search).limit(12).skip(offset)
-    res.status(200).json(products)
+    return res.status(200).json(products)
   } catch (error) {
-    res.status(500).json({ message: '發生未知錯誤', error })
+    return res.status(500).json({ message: '發生未知錯誤', error })
   }
 }
 
@@ -37,14 +37,14 @@ const getProduct = async (req, res) => {
     // 判斷必填
     const { id } = req.params
     if (!id) {
-      res.status(400).json({ message: 'miss required' })
+      return res.status(400).json({ message: 'miss required' })
     }
 
     // 取得商品
     const product = await Products.findById(id)
-    res.status(200).json(product)
+    return res.status(200).json(product)
   } catch (error) {
-    res.status(500).json({ message: '發生未知錯誤', error })
+    return res.status(500).json({ message: '發生未知錯誤', error })
   }
 }
 
@@ -53,14 +53,13 @@ const postProduct = async (req, res) => {
   // 判斷必填
   const { title, content, photos, price, category } = req.body
   if (!title || !content || !photos || !price || !category) {
-    res.status(400).json({ message: 'miss required' })
+    return res.status(400).json({ message: 'miss required' })
   }
 
   // 判斷價格
   if (price < 0) {
-    res.status(400).json({ message: '價格不得小於 0' })
+    return res.status(400).json({ message: '價格不得小於 0' })
   }
-  console.log(2)
 
   // 新增商品
   try {
@@ -72,9 +71,9 @@ const postProduct = async (req, res) => {
       category,
     })
     await newProduct.save()
-    res.status(200).json({ message: '新增商品成功' })
+    return res.status(200).json({ message: '新增商品成功' })
   } catch (error) {
-    res.status(500).json({ message: '發生未知錯誤', error })
+    return res.status(500).json({ message: '發生未知錯誤', error })
   }
 }
 
@@ -82,9 +81,9 @@ const postProduct = async (req, res) => {
 const deleteProducts = async (req, res) => {
   try {
     await Products.deleteMany()
-    res.status(200).json({ message: '刪除所有商品成功' })
+    return res.status(200).json({ message: '刪除所有商品成功' })
   } catch (error) {
-    res.status(500).json({ message: '發生未知錯誤', error })
+    return res.status(500).json({ message: '發生未知錯誤', error })
   }
 }
 
