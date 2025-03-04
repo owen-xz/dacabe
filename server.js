@@ -9,7 +9,20 @@ const PORT = process.env.PORT || 3001
 // 連接 MongoDB
 connectDB()
 
-app.use(cors())
+// 設定 cors
+const allowedOrigins = ['http://localhost:3000', 'https://dacafe.vercel.app']
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true)
+      } else {
+        callback(new Error('Not allowed by CORS'))
+      }
+    },
+    credentials: true, // ✅ 允許前端攜帶 Cookie
+  })
+)
 
 // 設定靜態檔案目錄 (如有前端檔案)
 app.use(express.static('public'))
