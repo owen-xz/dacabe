@@ -59,6 +59,8 @@ const login = async (req, res) => {
     // 將 Refresh Token 儲存到 HTTP-only Cookie
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'None',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 天
     })
 
@@ -111,6 +113,8 @@ const logout = (req, res) => {
     // 清除 HTTP-only Cookie 中的 Refresh Token
     res.clearCookie('refreshToken', {
       httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'None',
     })
 
     return res.status(200).json({ message: '登出成功' })
