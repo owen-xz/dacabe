@@ -10,7 +10,7 @@ const getOrders = async (req, res) => {
     const orders = await Orders.find({ 'orderer.email': email })
       .populate({
         path: 'cart.productId',
-        select: 'title price',
+        select: 'title price photos',
       })
       .select('_id cart reservedTime status')
     const formattedOrders = orders.map((order) => ({
@@ -18,6 +18,7 @@ const getOrders = async (req, res) => {
       cart: order.cart.map((item) => ({
         productId: item.productId._id,
         title: item.productId.title,
+        photo: item.productId.photos[0],
         price: item.productId.price,
         count: item.count,
       })),
@@ -40,7 +41,7 @@ const getOrder = async (req, res) => {
     // 取得訂單
     const order = await Orders.findById(id).populate({
       path: 'cart.productId',
-      select: 'title price',
+      select: 'title price photos',
     })
     if (!order) {
       return res.status(400).json({ message: '查無此訂單' })
@@ -52,6 +53,7 @@ const getOrder = async (req, res) => {
       cart: order.cart.map((item) => ({
         productId: item.productId._id,
         title: item.productId.title,
+        photo: item.productId.photos[0],
         price: item.productId.price,
         count: item.count,
       })),
