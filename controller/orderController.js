@@ -116,7 +116,7 @@ const postOrder = async (req, res) => {
       reservedTime,
     })
     await newOrder.save()
-    return res.status(200).json({ message: '新增訂單成功' })
+    return res.status(200).json(newOrder._id)
   } catch (error) {
     return res.status(500).json({ message: '發生未知錯誤', error })
   }
