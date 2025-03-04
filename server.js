@@ -24,6 +24,10 @@ app.use(
   })
 )
 
+// 引入 cookie-parser
+const cookieParser = require('cookie-parser')
+app.use(cookieParser())
+
 // 設定靜態檔案目錄 (如有前端檔案)
 app.use(express.static('public'))
 
