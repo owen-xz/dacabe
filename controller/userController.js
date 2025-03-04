@@ -64,7 +64,7 @@ const login = async (req, res) => {
 
     return res
       .status(200)
-      .json({ accessToken, userId: _id, name, phone, email })
+      .json({ accessToken, userId: _id, name, phone, email, role })
   } catch (error) {
     return res.status(500).json({ message: '發生未知錯誤', error })
   }
@@ -100,8 +100,8 @@ const refresh = async (req, res) => {
 
     return res
       .status(200)
-      .json({ accessToken, userId: _id, name, phone, email })
-  } catch (err) {
+      .json({ accessToken, userId: _id, name, phone, email, role })
+  } catch (error) {
     return res.status(500).json({ message: '發生未知錯誤', error })
   }
 }
@@ -114,7 +114,18 @@ const logout = (req, res) => {
     })
 
     return res.status(200).json({ message: '登出成功' })
-  } catch (err) {
+  } catch (error) {
+    return res.status(500).json({ message: '發生未知錯誤', error })
+  }
+}
+
+// 取得用戶資料
+const getUser = async (req, res) => {
+  try {
+    const userId = req.userId
+    const user = await User.findById(userId).select('name phone email role')
+    return res.status(200).json(user)
+  } catch (error) {
     return res.status(500).json({ message: '發生未知錯誤', error })
   }
 }
@@ -124,4 +135,5 @@ module.exports = {
   login,
   refresh,
   logout,
+  getUser,
 }

@@ -5,6 +5,7 @@ const {
   login,
   refresh,
   logout,
+  getUser,
 } = require('../controller/userController')
 const { authMiddleware, isAdmin } = require('../middleware/auth')
 
@@ -17,8 +18,11 @@ router.post('/login', login)
 // refresh
 router.post('/refresh', refresh)
 
-// dengchu
+// 登出
 router.post('/logout', logout)
+
+// 取得用戶資料
+router.get('/user', authMiddleware, getUser)
 
 // 普通用戶可以存取的資源
 router.get('/user', authMiddleware, (req, res) => {
