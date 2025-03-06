@@ -134,10 +134,33 @@ const getUser = async (req, res) => {
   }
 }
 
+// 更新用戶資料
+const putUser = async (req, res) => {
+  try {
+    // 判斷必填
+    const userId = req.userId
+    const { name, phone, email } = req.body
+    if (!name || !phone || !email) {
+      return res.status(400).json({ message: 'Miss required.' })
+    }
+
+    // 更新用戶資料
+    await User.findByIdAndUpdate(userId, {
+      name,
+      phone,
+      email,
+    })
+    return res.status(200).json({ message: '會員資訊更新成功' })
+  } catch (error) {
+    return res.status(500).json({ message: '發生未知錯誤', error })
+  }
+}
+
 module.exports = {
   signup,
   login,
   refresh,
   logout,
   getUser,
+  putUser,
 }

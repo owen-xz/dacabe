@@ -6,6 +6,7 @@ const {
   refresh,
   logout,
   getUser,
+  putUser,
 } = require('../controller/userController')
 const { authMiddleware, isAdmin } = require('../middleware/auth')
 
@@ -24,22 +25,7 @@ router.post('/logout', logout)
 // 取得用戶資料
 router.get('/user', authMiddleware, getUser)
 
-// 普通用戶可以存取的資源
-router.get('/user', authMiddleware, (req, res) => {
-  res.json({
-    message: 'This is a user route',
-    userId: req.userId,
-    role: req.userRole,
-  })
-})
-
-// 只有管理者可以存取的資源
-router.get('/admin', authMiddleware, isAdmin, (req, res) => {
-  res.json({
-    message: 'This is an admin route',
-    userId: req.userId,
-    role: req.userRole,
-  })
-})
+// 更新用戶資料
+router.put('/user', authMiddleware, putUser)
 
 module.exports = router
