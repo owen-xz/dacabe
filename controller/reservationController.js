@@ -1,11 +1,11 @@
 const Reservation = require('../models/Reservation')
 const { statusEnum } = require('../enums/reservationEnum')
 
-const updateReservationStatus = async (phone) => {
+const updateReservationStatus = async (email) => {
   const nowDate = new Date()
   await Reservation.updateMany(
     {
-      phone,
+      email,
       status: 'unreported',
       reservedTime: { $lt: nowDate },
     },
@@ -17,16 +17,16 @@ const updateReservationStatus = async (phone) => {
 const getReservation = async (req, res) => {
   try {
     // 判斷必填
-    const { phone } = req.params
-    if (!phone) {
+    const { email } = req.params
+    if (!email) {
       return res.status(400).json({ message: 'Miss required.' })
     }
 
     // 更新訂位狀態
-    await updateReservationStatus(phone)
+    await updateReservationStatus(email)
 
     const reservation = await Reservation.findOne({
-      phone,
+      email,
       status: 'unreported',
     })
     return res.status(200).json(reservation)
@@ -50,11 +50,11 @@ const postReservation = async (req, res) => {
     }
 
     // 更新訂位狀態
-    await updateReservationStatus(phone)
+    await updateReservationStatus(email)
 
     // 判斷是否已有尚未報到之訂位
     const reservationExist = await Reservation.findOne({
-      phone,
+      email,
       status: 'unreported',
     }).exec()
     if (reservationExist) {
@@ -91,10 +91,7 @@ const putReservation = async (req, res) => {
     }
 
     // 更新狀態
-    const reser = await Reservation.findOneAndUpdate(
-      { _id: id },
-      { $set: { status } }
-    )
+    await Reservation.findOneAndUpdate({ _id: id }, { $set: { status } })
     return res.status(200).json({ message: '更新訂位狀態成功' })
   } catch (error) {
     return res.status(500).json({ message: '發生未知錯誤', error })

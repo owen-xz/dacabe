@@ -6,7 +6,7 @@ const {
   putReservation,
 } = require('../controller/reservationController')
 
-router.get('/reservation/:phone', getReservation)
+router.get('/reservation/:email', getReservation)
 router.post('/reservation', postReservation)
 router.put('/reservation/:id', putReservation)
 
